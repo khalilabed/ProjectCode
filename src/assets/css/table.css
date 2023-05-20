@@ -1,0 +1,39 @@
+thead{
+    background-color: rgb(105, 65, 65) !important;
+}
+.table{
+    padding: 15px !important;
+}
+td{
+    padding: 10px !important;
+}
+.tops{
+    padding-top: 3px;
+}
+.size{
+    width: 50%;
+}
+.wid{
+    width: 80% !important;
+}
+.topp{
+    margin-top: 50px;
+}
+.card-header{
+    font-weight: bolder !important;
+}
+.rateb .card{
+    width: 80%;
+    background-color: #51cda0 !important;
+}
+thead th{
+    background-color: rgb(236, 236, 236) !important;
+    padding: 15px !important;
+}
+.padinp{
+        padding: 14px !important;
+}
+.mm{
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
