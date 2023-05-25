@@ -6,18 +6,18 @@ exports.create = async (req, res) => {
     if (!req.body.type && !req.body.amount && !req.body.createdAt && !req.body.comments) {
         res.status(400).send({ message: "Content can not be empty!" });
     }
-    
+
     const expense = new expenseModel({
         type: req.body.type,
         amount: req.body.amount,
         createdAt: req.body.createdAt,
         comments: req.body.comments
     });
-    
+
     await expense.save().then(data => {
         res.send({
-            message:"User created successfully!!",
-            expense:data
+            message: "User created successfully!!",
+            expense: data
         });
     }).catch(err => {
         res.status(500).send({
@@ -76,29 +76,29 @@ exports.findAll = async (req, res) => {
     }
 };
 
-exports.average = async (req, res) => {
-    try {
-        const expenses = await expenseModel.find();
-        const salary = await salaryModel.find();
-        const expenseTypes = expenses.reduce((acc, expense) => {
-            acc[expense.type] = acc[expense.type] || { count: 0, total: 0, percentage: 0 };
-            acc[expense.type].count += 1;
-            acc[expense.type].total += parseInt(expense.amount);
-            acc[expense.type].percentage = ((acc[expense.type].total / salary.reduce((acc, salary) => acc + parseInt(salary.monthly_salary), 0)) * 100).toFixed(2) + "%";
-            return acc;
-        }, {});
+// exports.average = async (req, res) => {
+//     try {
+//         const expenses = await expenseModel.find();
+//         const salary = await salaryModel.find();
+//         const expenseTypes = expenses.reduce((acc, expense) => {
+//             acc[expense.type] = acc[expense.type] || { count: 0, total: 0, percentage: 0 };
+//             acc[expense.type].count += 1;
+//             acc[expense.type].total += parseInt(expense.amount);
+//             acc[expense.type].percentage = ((acc[expense.type].total / salary.reduce((acc, salary) => acc + parseInt(salary.monthly_salary), 0)) * 100).toFixed(2) + "%";
+//             return acc;
+//         }, {});
 
-        const response = {
-            expenseTypes,
-        };
+//         const response = {
+//             expenseTypes,
+//         };
 
-        res.status(200).json(response);
+//         res.status(200).json(response);
 
-    } catch(error) {
-        res.status(404).json({message: error.message});
-    }
+//     } catch (error) {
+//         res.status(404).json({ message: error.message });
+//     }
 
-};
+// };
 
 
 // Find a single with an id
@@ -106,30 +106,31 @@ exports.findOne = async (req, res) => {
     try {
         const expense = await expenseModel.findById(req.params.id);
         res.status(200).json(expense);
-    } catch(error) {
-        res.status(404).json({ message: error.message});
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 };
 
 // Update 
 exports.update = async (req, res) => {
-    if(!req.body) {
+    if (!req.body) {
         res.status(400).send({
             message: "Data to update can not be empty!"
         });
     }
-    
+
     const id = req.params.id;
-    
+
     await expenseModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
         if (!data) {
             res.status(404).send({
                 message: `Expense not found.`
             });
-        }else{
+        } else {
             res.send({ message: "Expense updated successfully." })
         }
     }).catch(err => {
+        console.log(err.message);
         res.status(500).send({
             message: err.message
         });
@@ -140,17 +141,17 @@ exports.update = async (req, res) => {
 exports.destroy = async (req, res) => {
     await expenseModel.findByIdAndRemove(req.params.id).then(data => {
         if (!data) {
-          res.status(404).send({
-            message: `Expense not found.`
-          });
+            res.status(404).send({
+                message: `Expense not found.`
+            });
         } else {
-          res.send({
-            message: "Expense deleted successfully!"
-          });
+            res.send({
+                message: "Expense deleted successfully!"
+            });
         }
     }).catch(err => {
         res.status(500).send({
-          message: err.message
+            message: err.message
         });
     });
 };

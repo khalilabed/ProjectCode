@@ -5,15 +5,15 @@ exports.create = async (req, res) => {
     if (!req.body.monthly_salary) {
         res.status(400).send({ message: "Content can not be empty!" });
     }
-    
+
     const salary = new salaryModel({
         monthly_salary: req.body.monthly_salary,
     });
-    
+
     await salary.save().then(data => {
         res.send({
-            message:"Salary created successfully!!",
-            salary:data
+            message: "Salary created successfully!!",
+            salary: data
         });
     }).catch(err => {
         res.status(500).send({

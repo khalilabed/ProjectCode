@@ -1,12 +1,11 @@
 const express = require('express')
 const salaryController = require('../controller/salary')
+const expenseController = require('../controller/expense')
 const router = express.Router();
 
-router.get('/', salaryController.findAll);
-// router.get('/:id', salaryController.findOne);
-router.post('/', salaryController.create);
 
-// router.patch('/:id', salaryController.update);
-// router.delete('/:id', salaryController.destroy);
+router.post('/', salaryController.create);
+router.get('/', expenseController.findAll);
+
 
 module.exports = router

@@ -6,13 +6,15 @@ const expenseController = require('../controller/expense');
 const router = express.Router();
 
 
-//Ahmed Al-barbari
+//Ahmed Al-barbari 
 router.get('/', expenseController.findAll);
-router.get('/average', expenseController.average);
+router.get('/average', expenseController.findAll);
+router.get('/expenceList', expenseController.findAll);
+
 //-----------------------------------------------------------
 router.get('/:id', expenseController.findOne);
 router.post('/', expenseController.create);
-router.patch('/:id', expenseController.update);
+router.put('/:id', expenseController.update);
 router.delete('/:id', expenseController.destroy);
 
 module.exports = router
